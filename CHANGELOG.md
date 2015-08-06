@@ -5,6 +5,7 @@
 ### ADD
 
 - PHP/7.0.0beta3 [David Zuelke]
+- PHP/5.6.12 [David Zuelke]
 
 ## v71 (2015-07-14)
 

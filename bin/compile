@@ -101,8 +101,11 @@ engine="php"
 engine_r="php -r"
 if [[ -f "composer.json" ]]; then
     if [[ ! -f "composer.lock" ]]; then
-        cat composer.json | python -c 'import sys, json; print sys.exit(any(key.count("/") for key in json.load(sys.stdin).get("require", {})))' 2> /dev/null || error "Your composer.json has dependencies, but no composer.lock
-was found, check it into your repository alongside composer.json!"
+        cat composer.json | python -c 'import sys, json; print sys.exit(json.load(sys.stdin).get("require", {}))' 2> /dev/null || error "Your 'composer.json' lists dependencies inside 'require',
+but no 'composer.lock' was found. Please run 'composer update' to
+re-generate 'composer.lock' if necessary, and commit it into your
+repository. For more information, please refer to the docs at
+https://devcenter.heroku.com/articles/php-support#activation"
     fi
     
     solver_payload=$(echo -n "$runtimes" | python -c '
